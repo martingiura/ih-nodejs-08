@@ -16,6 +16,17 @@ exports.register = async (req, res) => {
 	const email 	= req.body.email
 	const password 	= req.body.password
 
+	// => A) VALIDACIÓN - VERIFICACIÓN DE CAMPOS VACÍOS
+	// VERIFICAR QUE USERNAME, EMAIL Y PASSWORD TENGAN CONTENIDO. 
+	// ES DECIR QUE NO LLEGUEN VACÍOS.
+	if(!username || !email || !password){
+		res.render("auth/signup", {
+			errorMessage: "Uno o más campos están vacíos. Revísalos nuevamente."
+		})
+
+		return
+	}
+
 
 	// 2. ENCRIPTACIÓN DE PASSWORD 🚩🚩🚩
 	const salt = await bcryptjs.genSalt(10)
